@@ -7,7 +7,7 @@ from mcp.server.models import InitializationOptions
 from .configs import SERVER_VERSION
 from .database import DatabaseClient
 from .prompt import PROMPT_TEMPLATE
-from .prompt_cosmetiq import COSMETIQ_PROMPT
+from .prompt_viridex import VIRIDEX_PROMPT
 
 
 logger = logging.getLogger("mcp_server_motherduck")
@@ -61,8 +61,8 @@ def build_application(
         # Check postgres and sqlite servers.
         return [
             types.Prompt(
-                name="cosmetiq-context-prompt",
-                description="Initial context and guidelines to leverage the cosmetiq ecosystem",
+                name="viridex-context-prompt",
+                description="Contesto iniziale e linee guida per sfruttare l'ecosistema di gestione magazzino Viridex",
     ),
             types.Prompt(
                 name="duckdb-motherduck-initial-prompt",
@@ -81,13 +81,13 @@ def build_application(
         logger.info(f"Getting prompt: {name}::{arguments}")
         # TODO: Check where and how this is used, and how to optimize this.
         # Check postgres and sqlite servers.
-        if name == "cosmetiq-context-prompt":
+        if name == "viridex-context-prompt":
             return types.GetPromptResult(
-                description="Cosmetiq domain-specific start prompt",
+                description="Prompt di avvio specifico per il dominio di gestione magazzino Viridex",
                 messages=[
                     types.PromptMessage(
                         role="user",
-                        content=types.TextContent(type="text", text=COSMETIQ_PROMPT),
+                        content=types.TextContent(type="text", text=VIRIDEX_PROMPT),
                     )
                 ],
             )
